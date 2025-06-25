@@ -143,6 +143,23 @@
      opacity and make it visible. */
   opacity: 0;
 }
+.added-to-cart-visible {
+  opacity: 1;
+  transition: opacity 0.3s ease-in-out;
+  /* Remove animation property from here */
+}
+
+@keyframes fadeOutAddedToCart {
+  0% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
 
 .added-to-cart img {
   height: 20px;

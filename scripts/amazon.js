@@ -29,6 +29,7 @@
 //     priceCents: 799,
 //   },
 // ];
+import { cart } from "../data/cart.js";
 
 let productsHTML = "";
 
@@ -38,7 +39,7 @@ products.forEach((product) => {
           <div class="product-image-container">
             <img
               class="product-image"
-              src= ${product.image}
+              src="${product.image}"
             />
           </div>
 
@@ -61,7 +62,7 @@ products.forEach((product) => {
           )}</div>
 
           <div class="product-quantity-container">
-            <select>
+            <select class = 'js-quantity-selector-${product.id}'>
               <option selected value="1">1</option>
               <option value="2">2</option>
               <option value="3">3</option>
@@ -77,7 +78,7 @@ products.forEach((product) => {
 
           <div class="product-spacer"></div>
 
-          <div class="added-to-cart">
+          <div class="added-to-cart js-added-to-cart-${product.id}">
             <img src="images/icons/checkmark.png" />
             Added
           </div>
@@ -103,14 +104,22 @@ document.querySelectorAll(".js-add-to-cart").forEach((button) => {
       }
     });
 
+    const quantitySelector = document.querySelector(
+      `.js-quantity-selector-${productId}`
+    );
+
+    const quantity = Number(quantitySelector.value);
+
     if (matchingItem) {
-      matchingItem.quantity += 1;
+      matchingItem.quantity += quantity;
     } else {
       cart.push({
         productId: productId,
-        quantity: 1,
+        quantity: quantity,
       });
     }
+    // console.log(quantity);
+    // console.log(cart);
 
     let cartQuantity = 0;
 
@@ -119,5 +128,13 @@ document.querySelectorAll(".js-add-to-cart").forEach((button) => {
     });
 
     document.querySelector(".js-cart-quantity").innerHTML = cartQuantity;
+
+    const addedTOCartMessage = document.querySelector(
+      `.js-added-to-cart-${productId}`
+    );
+    addedTOCartMessage.classList.add("added-to-cart-visible");
+    setTimeout(() => {
+      addedTOCartMessage.classList.remove("added-to-cart-visible");
+    }, 2000);
   });
 });
