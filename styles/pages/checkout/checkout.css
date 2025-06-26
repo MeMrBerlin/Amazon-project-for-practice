@@ -209,3 +209,29 @@
   margin-top: 11px;
   margin-bottom: 15px;
 }
+
+.quantity-input {
+  display: None;
+  width: 30px;
+  opacity: 0;
+}
+
+.quantity-input-visible {
+  display: inline;
+  opacity: 1;
+}
+
+.save-quantity-link {
+  display: none;
+  cursor: pointer;
+}
+
+.save-quantity-link-visible {
+  display: inline;
+  color: rgb(0, 113, 188);
+}
+
+.save-quantity-link:hover {
+  color: rgb(196, 80, 0);
+  cursor: pointer;
+}

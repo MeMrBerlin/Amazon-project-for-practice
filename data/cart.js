@@ -52,7 +52,10 @@ export function updateCartQuantity() {
     cartQuantity += item.quantity;
   });
 
-  document.querySelector(".js-cart-quantity").innerHTML = cartQuantity;
+  const cartQuantityElement = document.querySelector(".js-cart-quantity");
+  if (cartQuantityElement) {
+    cartQuantityElement.innerHTML = cartQuantity;
+  }
 }
 
 export function removeFromCart(productId) {
@@ -64,4 +67,53 @@ export function removeFromCart(productId) {
   });
   cart = newCart;
   saveToLocalStorage();
+}
+
+export function updateCheckoutItem(items) {
+  let cartQuantity = 0;
+  cart.forEach((item) => {
+    cartQuantity += item.quantity;
+  });
+
+  document.querySelector(".js-return-to-home-link").innerHTML =
+    cartQuantity === 0
+      ? "0 item"
+      : cartQuantity === 1
+      ? "1 item"
+      : `${cartQuantity} items`;
+}
+
+//! reminder: undate and save is not working properly
+export function updateTheQuantity(cartItemContainer) {
+  const quantityInput = cartItemContainer.querySelector(".js-quantity-input");
+  quantityInput.classList.add("quantity-input-visible");
+  quantityInput.focus();
+}
+
+export function saveTheQuantity(cartItemContainer) {
+  const saveLink = cartItemContainer.querySelector(".js-save-quantity-link");
+  saveLink.classList.add("save-quantity-link-visible");
+
+  // Remove any previous click listeners to avoid duplicates
+  const newSaveLink = saveLink.cloneNode(true);
+  saveLink.parentNode.replaceChild(newSaveLink, saveLink);
+
+  newSaveLink.classList.add("save-quantity-link-visible");
+  newSaveLink.addEventListener("click", () => {
+    const quantityInput = cartItemContainer.querySelector(".js-quantity-input");
+    const newQuantity = Number(quantityInput.value);
+    const productId = cartItemContainer.dataset.productId;
+
+    cart.forEach((item) => {
+      if (item.productId === productId) {
+        item.quantity = newQuantity;
+      }
+    });
+
+    saveToLocalStorage();
+    updateCartQuantity(); // This will update the cart quantity in the UI
+
+    quantityInput.classList.remove("quantity-input-visible");
+    newSaveLink.classList.remove("save-quantity-link-visible");
+  });
 }
