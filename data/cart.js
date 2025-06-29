@@ -120,3 +120,18 @@ export function saveTheQuantity(cartItemContainer) {
     newSaveLink.classList.remove("save-quantity-link-visible");
   });
 }
+
+export function updateDeliveryOption(productId, deliveryOptionsId) {
+  let matchingItem;
+
+  cart.forEach((item) => {
+    if (productId === item.productId) {
+      matchingItem = item;
+    }
+  });
+
+  if (matchingItem) {
+    matchingItem.deliveryOptionsId = deliveryOptionsId;
+    saveToLocalStorage();
+  }
+}
