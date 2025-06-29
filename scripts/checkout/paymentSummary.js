@@ -33,9 +33,9 @@ export function renderPaymentSummary() {
     taxCents = totalBeforeTax * 0.1;
     totalCents = Math.round(totalBeforeTax + taxCents).toFixed(2);
   });
-  console.log(productPriceCents);
-  console.log(shippingPriceCents);
-  console.log(totalCents);
+  //   console.log(productPriceCents);
+  //   console.log(shippingPriceCents);
+  //   console.log(totalCents);
 
   const paymentHTML = `
   <div class="payment-summary-title">Order Summary</div>
